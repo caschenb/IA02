@@ -34,4 +34,4 @@ nouveauplateau(P1,P2,case,NP1,NP2).
 distribuersurplateau(prise, casecourante, nbgrainescase, plateau, nouveauplateau, casearrivee, nbGrestantes).
 /* 0:distribution dans notre plateau 1: distribution dans le plateau de l'adversaire, =1 case choisie par l'utilisateur >1 on passe a la case suivante sans rien faire >1 on pose une graine et on passe a la case suivante fonction recursive*/
 
-calculercasearrivee(case1, case2, casefin). 
+calculercasearrivee(case1, case2, casefin).
