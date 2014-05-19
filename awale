@@ -1,0 +1,37 @@
+p1([4,4,4,4,4,4]).
+p2([4,4,4,4,4,4]).
+/*tourdejeu(PJ1, PJ2, SJ1, SJ2).
+initialisation */
+renverser([],[]).
+renverser([T|Q],R):-renverser(Q,QR), concat(QR,[T], R).
+nieme(1,[X|_],X) :- !.
+nieme(N,[_|R],X) :- N1 is N-1, nieme(N1,R,X).
+
+
+/*tourdejeu([4,4,4,4,4,4],[4,4,4,4,4,4],0,0). */
+afficheplateau(P1,P2):- write(P2), nl, write(P1), nl.
+afficheplateau(P2,P1):- renverser(P2, NP2), write(NP2), nl, write(P1), nl.
+tourdejeu(PJ1, PJ2, SCOREJ1, SCOREJ2):- fairejouerjoueur(PJ1, PJ2, SCOREJ1, SCOREJ2, 0).
+fairejouerjoueur(PJ1, PJ2, SCOREJ1, SCOREJ2, 0) :- fairejouerjoueur(PJ1, PJ2, SCOREJ1, SCOREJ2, 1).	
+fairejouerjoueur(PJ1, PJ2, SCOREJ1, SCOREJ2, 1) :- tourdejeu(PJ1, PJ2, SCOREJ1, SCOREJ2).	
+nombreGrainesDansCase(Case,PJ1, NBGraines):- nieme(Case,PJ1, NBGraines).
+
+siPremiereDistributionPossible(J1, J2, PJ1, PJ2, PJ1Fin, PJ2Fin, Case, NBGrainesCase, GrainesRamassees):- PJ2 \= [0,0,0,0,0,0].
+siPremiereDistributionPossible(J1, J2, PJ1, PJ2, PJ1Fin, PJ2Fin, Case, NBGrainesCase, GrainesRamassees):- nombreGrainesDansCase(Case,PJ1, NBGrainesCase), 6-Case > NBGrainesCase. 
+distribuerSurPlateau(0, Case, NBGrainesCase, PJ1, NewPJ1, CaseArrivee, 0).
+distribuerSurPlateau(0, 6, NBGrainesCase, PJ1, NewPJ1, CaseArrivee, NBGrainesRestantes):- Case \= CaseArrivee, N is NBGrainesRestantes-1, Case2 is Case+1, ajouterUneGraineCase(Case, PJ1, NewPJ1, 0), distribuerSurPlateau(1, Case2, NBGrainesCase, newPJ1, NewNewPJ1, CaseArrivee, N).
+distribuerSurPlateau(0, Case, NBGrainesCase, PJ1, NewPJ1, CaseArrivee, NBGrainesRestantes):- Case \= CaseArrivee, N is NBGrainesRestantes-1, Case2 is Case+1, ajouterUneGraineCase(Case, PJ1, NewPJ1, 0), distribuerSurPlateau(0, Case2, NBGrainesCase, newPJ1, NewNewPJ1, CaseArrivee, N). /*nieme(Case2, NewPJ1, NewNBGrainesCase).*/
+ajouterUneGraineCase(Case, PJ1, newPJ1,NUM) :- PJ1 = [].
+ajouterUneGraineCase(Case, [T|Q], [_|W], NumCase) :- case \= NumCase, N is numCase+1,  ajouterUneGraineCase(Case, Q, [W|T], N).
+ajouterUneGraineCase(Case, [T|Q], [_|W], NumCase) :-  N is numCase+1, NewGraine is T+1  ajouterUneGraineCase(Case, Q, [W|NewGraine], N).
+
+
+	
+commencerjeu:- afficheplateau([4,4,4,4,4,4],[4,4,4,4,4,4]), tourdejeu([4,4,4,4,4,4],[4,4,4,4,4,4],0,0).
+
+nouveauplateau(P1,P2,case,NP1,NP2).
+
+distribuersurplateau(prise, casecourante, nbgrainescase, plateau, nouveauplateau, casearrivee, nbGrestantes).
+/* 0:distribution dans notre plateau 1: distribution dans le plateau de l'adversaire, =1 case choisie par l'utilisateur >1 on passe a la case suivante sans rien faire >1 on pose une graine et on passe a la case suivante fonction recursive*/
+
+calculercasearrivee(case1, case2, casefin). 
