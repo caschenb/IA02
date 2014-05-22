@@ -24,9 +24,12 @@ distribuerSurPlateau(0, Case, NBGrainesCase, PJ1, NewPJ1, CaseArrivee, NBGraines
 ajouterUneGraineCase(Case, PJ1, newPJ1,NUM) :- PJ1 = [].
 ajouterUneGraineCase(Case, [T|Q], [_|W], NumCase) :- case \= NumCase, N is numCase+1,  ajouterUneGraineCase(Case, Q, [W|T], N).
 ajouterUneGraineCase(Case, [T|Q], [_|W], NumCase) :-  N is numCase+1, NewGraine is T+1  ajouterUneGraineCase(Case, Q, [W|NewGraine], N).
+secondeDistributionPossible(NBGrainesRestantes):- NBGrainesRestantes>0.
+/*distribuerSurPlateau(0, Case, NBGrainesCase, PJ2, NewPJ2, CaseArrivee, 0).
+distribuerSurPlateau(0, 6, NBGrainesCase, PJ2, NewPJ2, CaseArrivee, NBGrainesRestantes):- Case \= CaseArrivee, N is NBGrainesRestantes-1, Case2 is Case+1, ajouterUneGraineCase(Case, PJ2, NewPJ2, 0), distribuerSurPlateau(1, Case2, NBGrainesCase, newPJ2, NewNewPJ2, CaseArrivee, N).
+distribuerSurPlateau(0, Case, NBGrainesCase, PJ2, NewPJ2, CaseArrivee, NBGrainesRestantes):- Case \= CaseArrivee, N is NBGrainesRestantes-1, Case2 is Case+1, ajouterUneGraineCase(Case, PJ2, NewPJ2, 0), distribuerSurPlateau(0, Case2, NBGrainesCase, newPJ2, NewNewPJ2, CaseArrivee, N). /*nieme(Case2, NewPJ2, NewNBGrainesCase).*/
+*/
 
-
-	
 commencerjeu:- afficheplateau([4,4,4,4,4,4],[4,4,4,4,4,4]), tourdejeu([4,4,4,4,4,4],[4,4,4,4,4,4],0,0).
 
 nouveauplateau(P1,P2,case,NP1,NP2).
@@ -34,4 +37,8 @@ nouveauplateau(P1,P2,case,NP1,NP2).
 distribuersurplateau(prise, casecourante, nbgrainescase, plateau, nouveauplateau, casearrivee, nbGrestantes).
 /* 0:distribution dans notre plateau 1: distribution dans le plateau de l'adversaire, =1 case choisie par l'utilisateur >1 on passe a la case suivante sans rien faire >1 on pose une graine et on passe a la case suivante fonction recursive*/
 
-calculercasearrivee(case1, case2, casefin). 
+calculerCaseArrivee(case1, case2, casefin):-
+calculNombreDeGrainesRamassees(J1,Ja,P2AvtRamasse,PJ2Fin,CaseA,GrainesRamassees)
+
+partiegagnee(J1, J2, ScoreJ1, ScoreJ2):- ScoreJ1=>25, write('Le joueur 1 a gagné').
+partiegagnee(J1, J2, ScoreJ1, ScoreJ2):- ScoreJ2=>25, write('Le joueur 2 a gagné').
